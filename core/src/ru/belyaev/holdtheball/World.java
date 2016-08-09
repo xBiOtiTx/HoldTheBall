@@ -9,12 +9,12 @@ public class World {
     private static final float MIN_VELOCITY = 50.0f;
     private static final float MAX_VELOCITY = 100.0f;
     private static final float MIN_ACCELERATION = 50.0f;
-    private static final float MAX_ACCELERATION = 1000.0f;
+    private static final float MAX_ACCELERATION = 5000.0f;
     private static final float MIN_TIME_TO_TICK = 0.5f;
     private static final float MAX_TIME_TO_TICK = 1.0f;
     private static final float TIME_TO_HARDCORE = 60.0f; // время через которое все параметры должны достигнуть своих пиков
 
-    private static final float BALL_RADIUS = 50.0f;
+    private static final float BALL_RADIUS = 25.0f;
 
     private final int mWidth;
     private final int mHeight;
@@ -54,21 +54,33 @@ public class World {
             mBall.setX(0 + mBall.getRadius());
             final float angleX = mBall.getVelocity().angle(Vector2.Y);
             mBall.getVelocity().setAngle(90 + angleX);
+
+            final float aangleX = mBall.getAcceleration().angle(Vector2.Y);
+            mBall.getAcceleration().setAngle(90 + aangleX);
         }
         if (mBall.getX() + mBall.getRadius() > mWidth) {
             mBall.setX(mWidth - mBall.getRadius());
             final float angleX = mBall.getVelocity().angle(Vector2.Y);
             mBall.getVelocity().setAngle(90 + angleX);
+
+            final float aangleX = mBall.getAcceleration().angle(Vector2.Y);
+            mBall.getAcceleration().setAngle(90 + aangleX);
         }
         if (mBall.getY() - mBall.getRadius() < 0) {
             mBall.setY(0 + mBall.getRadius());
             final float angleY = mBall.getVelocity().angle(Vector2.X);
             mBall.getVelocity().setAngle(angleY);
+
+            final float aangleY = mBall.getAcceleration().angle(Vector2.X);
+            mBall.getAcceleration().setAngle(aangleY);
         }
         if (mBall.getY() + mBall.getRadius() > mHeight) {
             mBall.setY(mHeight - mBall.getRadius());
             final float angleY = mBall.getVelocity().angle(Vector2.X);
             mBall.getVelocity().setAngle(angleY);
+
+            final float aangleY = mBall.getAcceleration().angle(Vector2.X);
+            mBall.getAcceleration().setAngle(aangleY);
         }
     }
 

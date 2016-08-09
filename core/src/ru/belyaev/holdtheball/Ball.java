@@ -3,7 +3,7 @@ package ru.belyaev.holdtheball;
 import com.badlogic.gdx.math.Vector2;
 
 public class Ball {
-    private static final float MAX_VELOCITY = 500.0f;
+    private static final float MAX_VELOCITY = 750.0f;
 
     private Vector2 mPosition;
     private Vector2 mVelocity = new Vector2(0, 0);
