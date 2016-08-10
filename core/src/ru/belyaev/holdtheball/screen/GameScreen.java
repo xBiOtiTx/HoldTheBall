@@ -41,5 +41,21 @@ public class GameScreen extends BaseScreen {
     // InputProcessor implementation
     // =============================================================================================
 
-    // TODO
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        // if(clicked) controller.start()
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        // if(clicked) controller.gameOver()
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        // if(clicked) controller.drag()
+        return false;
+    }
 }
