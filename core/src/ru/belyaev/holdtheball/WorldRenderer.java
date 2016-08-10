@@ -5,8 +5,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class WorldRenderer {
-
-    private static final Color CLEAR_COLOR = Color.WHITE;
     private static final Color CIRCLE_COLOR = Color.BLUE;
     private static final Color VELOCITY_COLOR = Color.WHITE;
     private static final Color ACCELERATION_COLOR = Color.YELLOW;
@@ -15,28 +13,45 @@ public class WorldRenderer {
     private final World mWorld;
     private final ShapeRenderer mShapeRenderer;
 
-    public WorldRenderer(World world) {
+    private boolean mDebug;
+
+    public WorldRenderer(World world, boolean debug) {
         mWorld = world;
+        mDebug = debug;
         mShapeRenderer = new ShapeRenderer();
     }
 
-    public void render() {
-        Gdx.gl.glLineWidth(LINE_WIDTH);
+    public WorldRenderer(World world) {
+        this(world, false);
+    }
 
+    public void render() {
         final float x = mWorld.getBall().getPosition().x;
         final float y = mWorld.getBall().getPosition().y;
-        final float vx = mWorld.getBall().getVelocity().x;
-        final float vy = mWorld.getBall().getVelocity().y;
-        final float ax = mWorld.getBall().getAcceleration().x;
-        final float ay = mWorld.getBall().getAcceleration().y;
 
+        Gdx.gl.glLineWidth(LINE_WIDTH);
         mShapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         mShapeRenderer.setColor(CIRCLE_COLOR);
         mShapeRenderer.circle(x, y, mWorld.getBall().getRadius());
-        mShapeRenderer.setColor(VELOCITY_COLOR);
-        mShapeRenderer.line(x, y, x + vx, y + vy);
-        mShapeRenderer.setColor(ACCELERATION_COLOR);
-        mShapeRenderer.line(x, y, x + ax, y + ay);
+        if (isDebug()) {
+            final float vx = mWorld.getBall().getVelocity().x;
+            final float vy = mWorld.getBall().getVelocity().y;
+            final float ax = mWorld.getBall().getAcceleration().x;
+            final float ay = mWorld.getBall().getAcceleration().y;
+
+            mShapeRenderer.setColor(VELOCITY_COLOR);
+            mShapeRenderer.line(x, y, x + vx, y + vy);
+            mShapeRenderer.setColor(ACCELERATION_COLOR);
+            mShapeRenderer.line(x, y, x + ax, y + ay);
+        }
         mShapeRenderer.end();
+    }
+
+    public void setDebug(boolean debug) {
+        mDebug = debug;
+    }
+
+    public boolean isDebug() {
+        return mDebug;
     }
 }

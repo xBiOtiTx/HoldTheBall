@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+// extends Game and set Screen on create
 public class HoldTheBall extends ApplicationAdapter {
     private World mWorld;
     private WorldRenderer mWorldRenderer;
