@@ -8,11 +8,11 @@ public class Ball {
     private Vector2 mPosition;
     private Vector2 mVelocity = new Vector2(0, 0);
     private Vector2 mAcceleration = new Vector2(0, 0);
-    private float mRaduis;
+    private float mRadius;
 
     public Ball(Vector2 position, float radius) {
         mPosition = position;
-        mRaduis = radius;
+        mRadius = radius;
     }
 
     public void update(float deltaTime) {
@@ -73,10 +73,10 @@ public class Ball {
     }
 
     public void setRadius(float radius) {
-        mRaduis = radius;
+        mRadius = radius;
     }
 
     public float getRadius() {
-        return mRaduis;
+        return mRadius;
     }
 }

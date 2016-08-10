@@ -1,28 +1,12 @@
 package ru.belyaev.holdtheball;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.Game;
 
-// extends Game and set Screen on create
-public class HoldTheBall extends ApplicationAdapter {
-    private World mWorld;
-    private WorldRenderer mWorldRenderer;
+import ru.belyaev.holdtheball.screen.GameScreen;
 
+public class HoldTheBall extends Game {
     @Override
     public void create() {
-        mWorld = new World(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        mWorldRenderer = new WorldRenderer(mWorld);
-    }
-
-    @Override
-    public void render() {
-        Gdx.gl.glClearColor(1, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        mWorld.update(Gdx.graphics.getDeltaTime());
-        mWorldRenderer.render();
+        setScreen(new GameScreen(this));
     }
 }

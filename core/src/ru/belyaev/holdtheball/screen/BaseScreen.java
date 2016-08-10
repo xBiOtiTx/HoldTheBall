@@ -98,7 +98,6 @@ public abstract class BaseScreen implements Screen, InputProcessor {
     // getters
     // =============================================================================================
 
-
     public Game getGame() {
         return mGame;
     }
