@@ -11,7 +11,7 @@ import java.text.DecimalFormat;
 
 public class WorldRenderer {
     private static final Color CIRCLE_COLOR = Color.BLACK;
-    private static final Color VELOCITY_COLOR = Color.WHITE;
+    private static final Color VELOCITY_COLOR = Color.BLUE;
     private static final Color ACCELERATION_COLOR = Color.YELLOW;
     private static final float LINE_WIDTH = 5.0f;
 

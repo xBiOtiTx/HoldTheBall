@@ -1,6 +1,8 @@
 package ru.belyaev.holdtheball;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.FillViewport;
 
 import java.util.Random;
 
@@ -15,7 +17,7 @@ public class World {
 
     private static final float BALL_MIN_RADIUS = 25.0f;
     private static final float BALL_MAX_RADIUS = 75.0f;
-    private static final float BALL_RADIUS = 40.0f;
+    private static final float BALL_RADIUS = 75.0f;
 
     private final int mWidth;
     private final int mHeight;
