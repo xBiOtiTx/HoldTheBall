@@ -9,4 +9,9 @@ public class HoldTheBall extends Game {
     public void create() {
         setScreen(new GameScreen(this));
     }
+
+    @Override
+    public void render() {
+        super.render();
+    }
 }

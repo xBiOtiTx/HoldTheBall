@@ -11,11 +11,11 @@ public class World {
     private static final float MIN_ACCELERATION = 50.0f;
     private static final float MAX_ACCELERATION = 5000.0f;
     private static final float MIN_TIME_TO_TICK = 0.5f;
-    private static final float MAX_TIME_TO_TICK = 1.0f;
+    private static final float MAX_TIME_TO_TICK = 0.75f;
 
     private static final float BALL_MIN_RADIUS = 25.0f;
     private static final float BALL_MAX_RADIUS = 75.0f;
-    private static final float BALL_RADIUS = 30.0f;
+    private static final float BALL_RADIUS = 40.0f;
 
     private final int mWidth;
     private final int mHeight;
@@ -24,6 +24,12 @@ public class World {
 
     private float mTimeToTick = 0;
     private float mTime = 0; // == score // прошедшее время
+
+    // TODO WorldState
+    public enum State {
+        RUNNING,
+        GAME_OVER
+    }
 
     public World(int width, int height) {
         mWidth = width;
@@ -114,5 +120,9 @@ public class World {
 
     public Ball getBall() {
         return mBall;
+    }
+
+    public float getTime() {
+        return mTime;
     }
 }

@@ -19,11 +19,22 @@ public class GameScreen extends BaseScreen {
     private final int mWidth;
     private final int mHeight;
 
+    // GameState
+    public enum State {
+        READY,
+        RUNNING,
+        PAUSED,
+        GAME_OVER
+    }
+
+    private State mState;
+
     public GameScreen(Game game) {
         super(game);
         mWidth = Gdx.graphics.getWidth();
         mHeight = Gdx.graphics.getHeight();
 
+        mState = State.READY;
         mWorld = new World(mWidth, mHeight);
         mWorldRenderer = new WorldRenderer(mWorld);
         mWorldController = new WorldController(mWorld);
@@ -35,6 +46,26 @@ public class GameScreen extends BaseScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         mWorld.update(deltaTime);
         mWorldRenderer.render();
+    }
+
+    // =============================================================================================
+    // update states
+    // =============================================================================================
+
+    private void updateReady() {
+
+    }
+
+    private void updateRunning() {
+
+    }
+
+    private void updatePaused() {
+
+    }
+
+    private void updateGameOver() {
+
     }
 
     // =============================================================================================
