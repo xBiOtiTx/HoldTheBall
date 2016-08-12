@@ -1,14 +1,24 @@
 package ru.belyaev.holdtheball.screen;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 
 public abstract class BaseScreen implements Screen, InputProcessor {
+    private static final Color CLEAR_COLOR = Color.WHITE;
+
     private final Game mGame;
 
     public BaseScreen(Game game) {
         mGame = game;
+    }
+
+    protected void clear() {
+        Gdx.gl.glClearColor(CLEAR_COLOR.r, CLEAR_COLOR.g, CLEAR_COLOR.b, CLEAR_COLOR.a);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 
     // =============================================================================================

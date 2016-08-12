@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
@@ -33,5 +34,19 @@ public class ButtonFactory {
         TextButton button = new TextButton("New game", skin); // Use the initialized skin
         button.setPosition(Gdx.graphics.getWidth()/2 - Gdx.graphics.getWidth()/8 , Gdx.graphics.getHeight()/2);
         return  button;
+    }
+
+    public static Label createLabel(String text) {
+        BitmapFont font = new BitmapFont();
+        font.setColor(Color.RED);
+        Skin skin = new Skin();
+        skin.add("default", font);
+
+        //Create a label style
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = skin.getFont("default");
+        skin.add("default", labelStyle);
+
+        return  new Label(text, skin);
     }
 }
