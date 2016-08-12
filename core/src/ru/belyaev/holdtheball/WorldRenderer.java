@@ -20,7 +20,7 @@ public class WorldRenderer {
     private final SpriteBatch mSpriteBatch;
     private final BitmapFont mBitmapFont;
     private final GlyphLayout mGlyphLayout;
-    private final DecimalFormat mDecimalFormat = new DecimalFormat("Score: 0.000");
+    private final DecimalFormat mDecimalFormat = new DecimalFormat("Time: 0.000");
 
     private boolean mDebug;
 
@@ -62,7 +62,7 @@ public class WorldRenderer {
 
         mSpriteBatch.begin();
         mGlyphLayout.setText(mBitmapFont, mDecimalFormat.format(mWorld.getTime()));
-        mBitmapFont.draw(mSpriteBatch, mGlyphLayout, 0, mWorld.getHeight() - mGlyphLayout.height);
+        mBitmapFont.draw(mSpriteBatch, mGlyphLayout, 0, mWorld.getHeight() - mGlyphLayout.height/2);
         mSpriteBatch.end();
     }
 

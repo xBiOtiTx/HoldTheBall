@@ -30,10 +30,7 @@ public class ButtonFactory {
         textButtonStyle.font = skin.getFont("default");
         skin.add("default", textButtonStyle);
 
-
-        TextButton button = new TextButton("New game", skin); // Use the initialized skin
-        button.setPosition(Gdx.graphics.getWidth()/2 - Gdx.graphics.getWidth()/8 , Gdx.graphics.getHeight()/2);
-        return  button;
+        return  new TextButton(text, skin);
     }
 
     public static Label createLabel(String text) {

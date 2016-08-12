@@ -106,7 +106,8 @@ public class World {
     }
 
     public boolean hit(float x, float y) {
-        return distance(mBall.getX(), mBall.getY(), x, y) <= mBall.getRadius();
+        //return distance(mBall.getX(), mBall.getY(), x, y) <= mBall.getRadius();
+        return distance(mBall.getX(), mBall.getY(), x, y) <= mBall.getRadius() + 100; // TODO формализировать фору
     }
 
     // *********************************************************************************

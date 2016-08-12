@@ -42,7 +42,7 @@ public class GameScreen extends BaseScreen {
 
         mState = State.READY;
         mWorld = new World(mWidth, mHeight);
-        mWorldRenderer = new WorldRenderer(mWorld, true);
+        mWorldRenderer = new WorldRenderer(mWorld);
         mWorldController = new WorldController(mWorld);
 
         mStage = new Stage();
@@ -108,13 +108,14 @@ public class GameScreen extends BaseScreen {
         mStage.draw();
     }
 
+    private float mScreenX = 0;
+    private float mScreenY = 0;
+
     private void updateRunning(float deltaTime) {
         mWorld.update(deltaTime);
         mWorldRenderer.render();
 
-        float screenX = Gdx.input.getX();
-        float screenY = Gdx.input.getY();
-        if(!mWorld.hit(screenX, mHeight - screenY)) {
+        if (!mWorld.hit(mScreenX, mHeight - mScreenY)) {
             mState = State.GAME_OVER;
         }
     }
@@ -124,7 +125,7 @@ public class GameScreen extends BaseScreen {
     }
 
     private void updateGameOver(float deltaTime) {
-        getGame().setScreen(new GameOverScreen(getGame()));
+        getGame().setScreen(new GameOverScreen(getGame(), mWorld.getTime()));
     }
 
     // =============================================================================================
@@ -133,8 +134,11 @@ public class GameScreen extends BaseScreen {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        if(mState == State.READY) {
+        if (mState == State.READY) {
             mState = State.RUNNING;
+
+            mScreenX = screenX;
+            mScreenY = screenY;
         }
         return true;
     }
@@ -142,6 +146,13 @@ public class GameScreen extends BaseScreen {
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         mState = State.GAME_OVER;
+        return true;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        mScreenX = screenX;
+        mScreenY = screenY;
         return true;
     }
 }
