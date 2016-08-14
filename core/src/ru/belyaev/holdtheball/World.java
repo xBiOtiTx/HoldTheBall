@@ -17,7 +17,7 @@ public class World {
 
     private static final float BALL_MIN_RADIUS = 25.0f;
     private static final float BALL_MAX_RADIUS = 75.0f;
-    private static final float BALL_RADIUS = 75.0f;
+    private static final float BALL_RADIUS = 124.0f;
 
     private final int mWidth;
     private final int mHeight;
@@ -27,11 +27,11 @@ public class World {
     private float mTimeToTick = 0;
     private float mTime = 0; // == score // прошедшее время
 
-    // TODO WorldState
-    public enum State {
+    public enum WorldState {
         RUNNING,
         GAME_OVER
     }
+    private WorldState mWorldState = WorldState.RUNNING;
 
     public World(int width, int height) {
         mWidth = width;
@@ -41,10 +41,26 @@ public class World {
     }
 
     public void update(float deltaTime) {
+        switch (mWorldState) {
+            case RUNNING:
+                updateRunning(deltaTime);
+                break;
+
+            case GAME_OVER:
+                updateGameOver(deltaTime);
+                break;
+        }
+    }
+
+    private void updateRunning(float deltaTime) {
         mBall.update(deltaTime);
         checkCollisionBorders();
         updateAcceleration(deltaTime);
         mTime += deltaTime;
+    }
+
+    private void updateGameOver(float deltaTime) {
+
     }
 
     private void updateAcceleration(float deltaTime) {

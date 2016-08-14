@@ -2,6 +2,7 @@ package ru.belyaev.holdtheball.screen;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -14,6 +15,8 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 
     public BaseScreen(Game game) {
         mGame = game;
+
+        InputMultiplexer inputMultiplexer = new InputMultiplexer(); // todo
     }
 
     protected void clear() {
