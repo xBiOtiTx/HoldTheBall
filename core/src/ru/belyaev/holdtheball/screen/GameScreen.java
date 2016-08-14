@@ -56,7 +56,7 @@ public class GameScreen extends BaseScreen {
 
 //        gameOverLabel.setPosition(
 //                Gdx.graphics.getWidth() / 2 - gameOverLabel.getWidth() / 2,
-//                Gdx.graphics.getHeight() / 2  - gameOverLabel.getHeight()  -  mWorld.getBall().getRadius() - Styles.toDpi(16)
+//                Gdx.graphics.getHeight() / 2  - gameOverLabel.getHeight()  -  mWorld.getBall().getRadius() - Styles.dp(16)
 //        );
 
         gameOverLabel.setPosition(

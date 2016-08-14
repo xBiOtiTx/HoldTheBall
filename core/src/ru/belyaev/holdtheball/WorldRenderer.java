@@ -1,6 +1,5 @@
 package ru.belyaev.holdtheball;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,8 +8,6 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
 import ru.belyaev.holdtheball.ui.Styles;
@@ -66,8 +63,8 @@ public class WorldRenderer {
 
         mSpriteBatch.begin();
         mGlyphLayout.setText(mBitmapFont, String.format(Locale.US, "Time: %.3f", mWorld.getTime()));
-        final int paddingLeft = Styles.toDpi(8);
-        final int paddingTop = Styles.toDpi(4);
+        final int paddingLeft = Styles.dp(8);
+        final int paddingTop = Styles.dp(4);
         mSpriteBatch.draw(mPixmapTexture, x - mWorld.getBall().getRadius(), y - mWorld.getBall().getRadius());
         mBitmapFont.draw(mSpriteBatch, mGlyphLayout, paddingLeft, mWorld.getHeight() - mGlyphLayout.height/2 - paddingTop);
         mSpriteBatch.end();

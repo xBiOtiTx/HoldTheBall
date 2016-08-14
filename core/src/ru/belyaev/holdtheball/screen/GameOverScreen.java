@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
 import ru.belyaev.holdtheball.GamePreferences;
@@ -42,7 +41,7 @@ public class GameOverScreen extends BaseScreen {
         Label label2 = ButtonFactory.createLabel(String.format(Locale.US, "Best time: %.3f", bestTime));
         TextButton button = ButtonFactory.createButton("RETRY");
 
-        button.pad(Styles.toDpi(8), Styles.toDpi(16), Styles.toDpi(8), Styles.toDpi(16));
+        button.pad(Styles.dp(8), Styles.dp(16), Styles.dp(8), Styles.dp(16));
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -53,7 +52,7 @@ public class GameOverScreen extends BaseScreen {
         verticalGroup.addActor(label2);
         verticalGroup.addActor(button);
 
-        verticalGroup.space(Styles.toDpi(16));
+        verticalGroup.space(Styles.dp(16));
 
         Container<VerticalGroup> container = new Container<VerticalGroup>(verticalGroup);
         container.setFillParent(true);

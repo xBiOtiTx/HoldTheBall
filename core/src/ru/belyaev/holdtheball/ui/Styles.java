@@ -19,8 +19,8 @@ public class Styles {
     public static final TextButton.TextButtonStyle TEXT_BUTTON_STYLE = null;
     public static final Label.LabelStyle LABEL_STYLE = null;
 
-    public static int toDpi(float dp) {
-        return (int) (dp * DPI);
+    public static int dp(float unit) {
+        return (int) (unit * DPI);
     }
 
     public static final String ROBOTO_REGULAR = "fonts/Roboto-Regular.ttf";
@@ -33,9 +33,9 @@ public class Styles {
     public static BitmapFont getFont(final float sp) {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(ROBOTO_REGULAR));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = Styles.TEXT_SIZE_NORMAL;
-        BitmapFont font12 = generator.generateFont(parameter); // font size 12 pixels
+        parameter.size = Styles.TEXT_SIZE_NORMAL; // TODO тут ошибка
+        BitmapFont font = generator.generateFont(parameter); // font size 12 pixels
         generator.dispose(); // don't forget to dispose to avoid memory leaks!
-        return font12;
+        return font;
     }
 }
