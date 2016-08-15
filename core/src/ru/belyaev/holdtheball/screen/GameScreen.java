@@ -166,6 +166,10 @@ public class GameScreen extends BaseScreen {
 
     private void updateGameOver(float deltaTime) {
         getGame().setScreen(new GameOverScreen(getGame(), mWorld.getTime()));
+
+        // mWorld.getBall().setScale((float) (mWorld.getBall().getScale() + 0.3*deltaTime));
+        // mWorld.getBall().setScale((float) (mWorld.getBall().getScale() + mWorld.getBall().getScale()*0.25*deltaTime));
+        // mWorldRenderer.render();
     }
 
     // =============================================================================================

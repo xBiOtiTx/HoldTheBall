@@ -81,4 +81,12 @@ public class Ball {
     public float getRadius() {
         return mRadius;
     }
+
+    public float getScale() {
+        return mScale;
+    }
+
+    public void setScale(float scale) {
+        mScale = scale;
+    }
 }

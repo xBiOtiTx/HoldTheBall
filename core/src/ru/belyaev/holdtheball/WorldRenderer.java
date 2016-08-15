@@ -44,7 +44,7 @@ public class WorldRenderer {
         final int w = Styles.dp(LINE_WIDTH);
 
         Pixmap.setBlending(Pixmap.Blending.None);
-        mPixmap = new Pixmap(2 * r +1, 2 * r +1, Pixmap.Format.RGBA8888);
+        mPixmap = new Pixmap(2 * r + 1, 2 * r + 1, Pixmap.Format.RGBA8888);
 
         mPixmap.setColor(Color.BLACK);
         mPixmap.fillCircle(r, r, r);
@@ -68,7 +68,9 @@ public class WorldRenderer {
         mGlyphLayout.setText(mBitmapFont, String.format(Locale.US, "Time: %.3f", mWorld.getTime()));
         final int paddingLeft = Styles.dp(8);
         final int paddingTop = Styles.dp(4);
-        mSpriteBatch.draw(mPixmapTexture, x - mWorld.getBall().getRadius(), y - mWorld.getBall().getRadius());
+        // mSpriteBatch.draw(mPixmapTexture, x - mWorld.getBall().getRadius(), y - mWorld.getBall().getRadius());
+        final float r = mWorld.getBall().getRadius() * mWorld.getBall().getScale();
+        mSpriteBatch.draw(mPixmapTexture, x - r, y - r, 2 * r, 2 * r);
         mBitmapFont.draw(mSpriteBatch, mGlyphLayout, paddingLeft, mWorld.getHeight() - mGlyphLayout.height / 2 - paddingTop);
         mSpriteBatch.end();
     }
