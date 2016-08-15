@@ -7,17 +7,14 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Bezier;
-import com.badlogic.gdx.math.CatmullRomSpline;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.utils.Array;
 
 import ru.belyaev.holdtheball.World;
 import ru.belyaev.holdtheball.WorldController;
 import ru.belyaev.holdtheball.WorldRenderer;
 import ru.belyaev.holdtheball.ui.ButtonFactory;
-import ru.belyaev.holdtheball.ui.Styles;
 
 public class GameScreen extends BaseScreen {
     private final World mWorld;
@@ -36,7 +33,22 @@ public class GameScreen extends BaseScreen {
 
     private GameState mGameState;
 
-    private Stage mStage;
+    private Stage mReadyStateUIStage;
+    private Stage mRunningStateUIStage;
+    private Stage mPausedStateUIStage;
+    private Stage mGameOverStateUIStage;
+
+    private final World.WorldListener mWorldListener = new World.WorldListener() {
+        @Override
+        public void onBound() {
+            System.out.println("onBound");
+        }
+
+        @Override
+        public void onGameOver() {
+            System.out.println("onGameOver");
+        }
+    };
 
     public GameScreen(Game game) {
         super(game);
@@ -46,11 +58,11 @@ public class GameScreen extends BaseScreen {
         mHeight = Gdx.graphics.getHeight();
 
         mGameState = GameState.READY;
-        mWorld = new World(mWidth, mHeight);
+        mWorld = new World(mWidth, mHeight, mWorldListener);
         mWorldRenderer = new WorldRenderer(mWorld);
         mWorldController = new WorldController(mWorld);
 
-        mStage = new Stage();
+        mReadyStateUIStage = new Stage();
 
         Label gameOverLabel = ButtonFactory.createLabelWhite("Hold the ball");
 
@@ -64,7 +76,7 @@ public class GameScreen extends BaseScreen {
                 Gdx.graphics.getHeight() / 2 - gameOverLabel.getHeight() / 2 - Gdx.graphics.getHeight() / 4 - mWorld.getBall().getRadius() / 2
         );
 
-        mStage.addActor(gameOverLabel);
+        mReadyStateUIStage.addActor(gameOverLabel);
     }
 
     @Override
@@ -124,8 +136,8 @@ public class GameScreen extends BaseScreen {
         mShapeRenderer.end();
         Gdx.gl.glDisable(GL20.GL_BLEND);
 
-        mStage.act();
-        mStage.draw();
+        mReadyStateUIStage.act();
+        mReadyStateUIStage.draw();
 
 //        Gdx.gl.glLineWidth(5f);
 //        mShapeRenderer.begin(ShapeRenderer.ShapeType.Line);
@@ -176,7 +188,7 @@ public class GameScreen extends BaseScreen {
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        if(mGameState == GameState.RUNNING) {
+        if (mGameState == GameState.RUNNING) {
             mGameState = GameState.GAME_OVER;
         }
         return true;

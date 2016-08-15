@@ -16,7 +16,7 @@ public class WorldRenderer {
     private static final Color CIRCLE_COLOR = Color.BLACK;
     private static final Color VELOCITY_COLOR = Color.BLUE;
     private static final Color ACCELERATION_COLOR = Color.YELLOW;
-    private static final float LINE_WIDTH = 8.0f;
+    private static final int LINE_WIDTH = 8;
 
     private final World mWorld;
     private final ShapeRenderer mShapeRenderer;
@@ -40,14 +40,17 @@ public class WorldRenderer {
         mBitmapFont.setColor(Color.BLACK);
         mGlyphLayout = new GlyphLayout();
 
+        final int r = (int) mWorld.getBall().getRadius();
+        final int w = Styles.dp(LINE_WIDTH);
+
         Pixmap.setBlending(Pixmap.Blending.None);
-        mPixmap = new Pixmap(257, 257, Pixmap.Format.RGBA8888);
+        mPixmap = new Pixmap(2 * r, 2 * r, Pixmap.Format.RGBA8888);
 
         mPixmap.setColor(Color.BLACK);
-        mPixmap.fillCircle(128, 128, 128);
+        mPixmap.fillCircle(r, r, r);
 
         mPixmap.setColor(Color.LIGHT_GRAY);
-        mPixmap.fillCircle(128, 128, 120);
+        mPixmap.fillCircle(r, r, r - w);
 
         mPixmapTexture = new Texture(mPixmap);
         mPixmap.dispose();
@@ -66,7 +69,7 @@ public class WorldRenderer {
         final int paddingLeft = Styles.dp(8);
         final int paddingTop = Styles.dp(4);
         mSpriteBatch.draw(mPixmapTexture, x - mWorld.getBall().getRadius(), y - mWorld.getBall().getRadius());
-        mBitmapFont.draw(mSpriteBatch, mGlyphLayout, paddingLeft, mWorld.getHeight() - mGlyphLayout.height/2 - paddingTop);
+        mBitmapFont.draw(mSpriteBatch, mGlyphLayout, paddingLeft, mWorld.getHeight() - mGlyphLayout.height / 2 - paddingTop);
         mSpriteBatch.end();
     }
 

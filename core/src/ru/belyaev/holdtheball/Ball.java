@@ -10,6 +10,7 @@ public class Ball {
     private Vector2 mVelocity = new Vector2(0, 0);
     private Vector2 mAcceleration = new Vector2(0, 0);
     private float mRadius;
+    private float mScale = 1.0f;
 
     public Ball(Vector2 position, float radius) {
         mPosition = position;

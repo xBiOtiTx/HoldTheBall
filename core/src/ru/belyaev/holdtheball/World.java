@@ -6,37 +6,40 @@ import com.badlogic.gdx.utils.viewport.FillViewport;
 
 import java.util.Random;
 
+import ru.belyaev.holdtheball.ui.Styles;
+
 public class World {
 
-    private static final float MIN_VELOCITY = 50.0f;
-    private static final float MAX_VELOCITY = 100.0f;
-    private static final float MIN_ACCELERATION = 50.0f;
     private static final float MAX_ACCELERATION = 5000.0f;
-    private static final float MIN_TIME_TO_TICK = 0.5f;
     private static final float MAX_TIME_TO_TICK = 0.75f;
 
     private static final float BALL_MIN_RADIUS = 25.0f;
     private static final float BALL_MAX_RADIUS = 75.0f;
-    private static final float BALL_RADIUS = 124.0f;
+    private static final float BALL_RADIUS = 80.0f;
+
+    private static final float HIT_ERROR_DP = 32;
 
     private final int mWidth;
     private final int mHeight;
     private final Ball mBall;
     private final Random mRandom;
+    private final WorldListener mWorldListener;
 
     private float mTimeToTick = 0;
-    private float mTime = 0; // == score // прошедшее время
+    private float mTime = 0;
 
     public enum WorldState {
         RUNNING,
         GAME_OVER
     }
+
     private WorldState mWorldState = WorldState.RUNNING;
 
-    public World(int width, int height) {
+    public World(int width, int height, WorldListener worldListener) {
         mWidth = width;
         mHeight = height;
-        mBall = new Ball(new Vector2(width / 2, height / 2), BALL_RADIUS);
+        mWorldListener = worldListener;
+        mBall = new Ball(new Vector2(width / 2, height / 2), Styles.dp(BALL_RADIUS));
         mRandom = new Random(System.currentTimeMillis());
     }
 
@@ -79,6 +82,7 @@ public class World {
 
             final float aangleX = mBall.getAcceleration().angle(Vector2.Y);
             mBall.getAcceleration().setAngle(90 + aangleX);
+            mWorldListener.onBound();
         }
         if (mBall.getX() + mBall.getRadius() > mWidth) {
             mBall.setX(mWidth - mBall.getRadius());
@@ -87,6 +91,7 @@ public class World {
 
             final float aangleX = mBall.getAcceleration().angle(Vector2.Y);
             mBall.getAcceleration().setAngle(90 + aangleX);
+            mWorldListener.onBound();
         }
         if (mBall.getY() - mBall.getRadius() < 0) {
             mBall.setY(0 + mBall.getRadius());
@@ -95,6 +100,7 @@ public class World {
 
             final float aangleY = mBall.getAcceleration().angle(Vector2.X);
             mBall.getAcceleration().setAngle(aangleY);
+            mWorldListener.onBound();
         }
         if (mBall.getY() + mBall.getRadius() > mHeight) {
             mBall.setY(mHeight - mBall.getRadius());
@@ -103,6 +109,7 @@ public class World {
 
             final float aangleY = mBall.getAcceleration().angle(Vector2.X);
             mBall.getAcceleration().setAngle(aangleY);
+            mWorldListener.onBound();
         }
     }
 
@@ -122,13 +129,13 @@ public class World {
     }
 
     public boolean hit(float x, float y) {
-        //return distance(mBall.getX(), mBall.getY(), x, y) <= mBall.getRadius();
-        return distance(mBall.getX(), mBall.getY(), x, y) <= mBall.getRadius() + 100; // TODO формализировать фору
+        return distance(mBall.getX(), mBall.getY(), x, y) <= mBall.getRadius() + Styles.dp(HIT_ERROR_DP);
     }
 
-    // *********************************************************************************
+    // =============================================================================================
     // getters
-    // *********************************************************************************
+    // =============================================================================================
+
     public float getWidth() {
         return mWidth;
     }
@@ -143,5 +150,15 @@ public class World {
 
     public float getTime() {
         return mTime;
+    }
+
+    // =============================================================================================
+    // World Listener
+    // =============================================================================================
+
+    public interface WorldListener {
+        void onBound();
+
+        void onGameOver();
     }
 }
