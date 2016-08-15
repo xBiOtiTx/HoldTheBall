@@ -1,12 +1,4 @@
 android {
-    signingConfigs {
-        config {
-            keyAlias 'Apps'
-            keyPassword 'Dt14wfGh'
-            storeFile file('C:/Users/Евгений/Google Диск/KeyStore/MyKeyStore.jks')
-            storePassword 'HorseShelf32'
-        }
-    }
     buildToolsVersion "23.0.1"
     compileSdkVersion 23
     sourceSets {
