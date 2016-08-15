@@ -15,8 +15,11 @@ import ru.belyaev.holdtheball.World;
 import ru.belyaev.holdtheball.WorldController;
 import ru.belyaev.holdtheball.WorldRenderer;
 import ru.belyaev.holdtheball.ui.ButtonFactory;
+import ru.belyaev.holdtheball.ui.Styles;
 
 public class GameScreen extends BaseScreen {
+    private static final int GAME_OVER_VIBRATE_TIME = 300;
+
     private final World mWorld;
     private final WorldRenderer mWorldRenderer;
     private final WorldController mWorldController;
@@ -65,11 +68,6 @@ public class GameScreen extends BaseScreen {
         mReadyStateUIStage = new Stage();
 
         Label gameOverLabel = ButtonFactory.createLabelWhite("Hold the ball");
-
-//        gameOverLabel.setPosition(
-//                Gdx.graphics.getWidth() / 2 - gameOverLabel.getWidth() / 2,
-//                Gdx.graphics.getHeight() / 2  - gameOverLabel.getHeight()  -  mWorld.getBall().getRadius() - Styles.dp(16)
-//        );
 
         gameOverLabel.setPosition(
                 Gdx.graphics.getWidth() / 2 - gameOverLabel.getWidth() / 2,
@@ -154,13 +152,12 @@ public class GameScreen extends BaseScreen {
     private float mScreenY = 0;
 
     private void updateRunning(float deltaTime) {
-        mWorld.update(deltaTime);
-        mWorldRenderer.render();
-
         if (!mWorld.hit(mScreenX, mHeight - mScreenY)) {
             mGameState = GameState.GAME_OVER;
-            Gdx.input.vibrate(100);
+            Gdx.input.vibrate(GAME_OVER_VIBRATE_TIME);
         }
+        mWorld.update(deltaTime);
+        mWorldRenderer.render();
     }
 
     private void updatePaused(float deltaTime) {

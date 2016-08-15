@@ -16,7 +16,7 @@ public class WorldRenderer {
     private static final Color CIRCLE_COLOR = Color.BLACK;
     private static final Color VELOCITY_COLOR = Color.BLUE;
     private static final Color ACCELERATION_COLOR = Color.YELLOW;
-    private static final int LINE_WIDTH = 8;
+    private static final int LINE_WIDTH = 6;
 
     private final World mWorld;
     private final ShapeRenderer mShapeRenderer;
@@ -44,12 +44,12 @@ public class WorldRenderer {
         final int w = Styles.dp(LINE_WIDTH);
 
         Pixmap.setBlending(Pixmap.Blending.None);
-        mPixmap = new Pixmap(2 * r, 2 * r, Pixmap.Format.RGBA8888);
+        mPixmap = new Pixmap(2 * r +1, 2 * r +1, Pixmap.Format.RGBA8888);
 
         mPixmap.setColor(Color.BLACK);
         mPixmap.fillCircle(r, r, r);
 
-        mPixmap.setColor(Color.LIGHT_GRAY);
+        mPixmap.setColor(Color.CLEAR);
         mPixmap.fillCircle(r, r, r - w);
 
         mPixmapTexture = new Texture(mPixmap);

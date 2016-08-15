@@ -15,9 +15,9 @@ public class World {
 
     private static final float BALL_MIN_RADIUS = 25.0f;
     private static final float BALL_MAX_RADIUS = 75.0f;
-    private static final float BALL_RADIUS = 80.0f;
+    private static final float BALL_RADIUS = 64.0f;
 
-    private static final float HIT_ERROR_DP = 32;
+    private static final float HIT_ERROR_DP = 48;
 
     private final int mWidth;
     private final int mHeight;
@@ -129,7 +129,7 @@ public class World {
     }
 
     public boolean hit(float x, float y) {
-        return distance(mBall.getX(), mBall.getY(), x, y) <= mBall.getRadius() + Styles.dp(HIT_ERROR_DP);
+        return distance(mBall.getX(), mBall.getY(), x, y) <= (mBall.getRadius() + Styles.dp(HIT_ERROR_DP));
     }
 
     // =============================================================================================
