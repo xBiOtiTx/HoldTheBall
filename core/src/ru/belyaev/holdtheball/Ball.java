@@ -3,8 +3,7 @@ package ru.belyaev.holdtheball;
 import com.badlogic.gdx.math.Vector2;
 
 public class Ball {
-//     private static final float MAX_VELOCITY = 300.0f;
-    private static final float MAX_VELOCITY = 800.0f;
+    private static final float MAX_VELOCITY = 800.0f; // TODO -> config
 
     private Vector2 mPosition;
     private Vector2 mVelocity = new Vector2(0, 0);
@@ -23,7 +22,7 @@ public class Ball {
 
         mVelocity.x += mAcceleration.x * deltaTime;
         mVelocity.y += mAcceleration.y * deltaTime;
-        if(mVelocity.len() > MAX_VELOCITY) {
+        if (mVelocity.len() > MAX_VELOCITY) {
             mVelocity.nor();
             mVelocity.scl(MAX_VELOCITY);
         }
@@ -88,5 +87,9 @@ public class Ball {
 
     public void setScale(float scale) {
         mScale = scale;
+    }
+
+    public float getScaledRadius() {
+        return mRadius * mScale;
     }
 }

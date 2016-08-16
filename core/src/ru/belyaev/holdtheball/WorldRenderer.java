@@ -35,12 +35,11 @@ public class WorldRenderer {
         mShapeRenderer = new ShapeRenderer();
         mSpriteBatch = new SpriteBatch();
 
-        //mBitmapFont = new BitmapFont();
         mBitmapFont = Styles.getFont(Styles.TEXT_SIZE_NORMAL);
         mBitmapFont.setColor(Color.BLACK);
         mGlyphLayout = new GlyphLayout();
 
-        final int r = (int) mWorld.getBall().getRadius();
+        final int r = (int) mWorld.getBall().getScaledRadius();
         final int w = Styles.dp(LINE_WIDTH);
 
         Pixmap.setBlending(Pixmap.Blending.None);
@@ -69,7 +68,7 @@ public class WorldRenderer {
         final int paddingLeft = Styles.dp(8);
         final int paddingTop = Styles.dp(4);
         // mSpriteBatch.draw(mPixmapTexture, x - mWorld.getBall().getRadius(), y - mWorld.getBall().getRadius());
-        final float r = mWorld.getBall().getRadius() * mWorld.getBall().getScale();
+        final float r = mWorld.getBall().getScaledRadius();
         mSpriteBatch.draw(mPixmapTexture, x - r, y - r, 2 * r, 2 * r);
         mBitmapFont.draw(mSpriteBatch, mGlyphLayout, paddingLeft, mWorld.getHeight() - mGlyphLayout.height / 2 - paddingTop);
         mSpriteBatch.end();

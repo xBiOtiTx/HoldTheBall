@@ -15,7 +15,6 @@ import ru.belyaev.holdtheball.World;
 import ru.belyaev.holdtheball.WorldController;
 import ru.belyaev.holdtheball.WorldRenderer;
 import ru.belyaev.holdtheball.ui.ButtonFactory;
-import ru.belyaev.holdtheball.ui.Styles;
 
 public class GameScreen extends BaseScreen {
     private static final int GAME_OVER_VIBRATE_TIME = 300;
@@ -71,7 +70,7 @@ public class GameScreen extends BaseScreen {
 
         gameOverLabel.setPosition(
                 Gdx.graphics.getWidth() / 2 - gameOverLabel.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2 - gameOverLabel.getHeight() / 2 - Gdx.graphics.getHeight() / 4 - mWorld.getBall().getRadius() / 2
+                Gdx.graphics.getHeight() / 2 - gameOverLabel.getHeight() / 2 - Gdx.graphics.getHeight() / 4 - mWorld.getBall().getScaledRadius() / 2
         );
 
         mReadyStateUIStage.addActor(gameOverLabel);

@@ -1,8 +1,6 @@
 package ru.belyaev.holdtheball;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.FillViewport;
 
 import java.util.Random;
 
@@ -10,12 +8,12 @@ import ru.belyaev.holdtheball.ui.Styles;
 
 public class World {
 
-    private static final float MAX_ACCELERATION = 5000.0f;
+    private static final float MAX_ACCELERATION = 6000.0f;
     private static final float MAX_TIME_TO_TICK = 0.75f;
 
     private static final float BALL_MIN_RADIUS = 25.0f;
     private static final float BALL_MAX_RADIUS = 75.0f;
-    private static final float BALL_RADIUS = 64.0f;
+    private static final float BALL_RADIUS = 56.0f;
 
     private static final float HIT_ERROR_DP = 48;
 
@@ -56,6 +54,7 @@ public class World {
     }
 
     private void updateRunning(float deltaTime) {
+        // mScaleEffect.apply(mBall,deltaTime);
         mBall.update(deltaTime);
         checkCollisionBorders();
         updateAcceleration(deltaTime);
@@ -75,8 +74,8 @@ public class World {
     }
 
     private void checkCollisionBorders() {
-        if (mBall.getX() - mBall.getRadius() < 0) {
-            mBall.setX(0 + mBall.getRadius());
+        if (mBall.getX() - mBall.getScaledRadius() < 0) {
+            mBall.setX(0 + mBall.getScaledRadius());
             final float angleX = mBall.getVelocity().angle(Vector2.Y);
             mBall.getVelocity().setAngle(90 + angleX);
 
@@ -84,8 +83,8 @@ public class World {
             mBall.getAcceleration().setAngle(90 + aangleX);
             mWorldListener.onBound();
         }
-        if (mBall.getX() + mBall.getRadius() > mWidth) {
-            mBall.setX(mWidth - mBall.getRadius());
+        if (mBall.getX() + mBall.getScaledRadius() > mWidth) {
+            mBall.setX(mWidth - mBall.getScaledRadius());
             final float angleX = mBall.getVelocity().angle(Vector2.Y);
             mBall.getVelocity().setAngle(90 + angleX);
 
@@ -93,8 +92,8 @@ public class World {
             mBall.getAcceleration().setAngle(90 + aangleX);
             mWorldListener.onBound();
         }
-        if (mBall.getY() - mBall.getRadius() < 0) {
-            mBall.setY(0 + mBall.getRadius());
+        if (mBall.getY() - mBall.getScaledRadius() < 0) {
+            mBall.setY(0 + mBall.getScaledRadius());
             final float angleY = mBall.getVelocity().angle(Vector2.X);
             mBall.getVelocity().setAngle(angleY);
 
@@ -102,8 +101,8 @@ public class World {
             mBall.getAcceleration().setAngle(aangleY);
             mWorldListener.onBound();
         }
-        if (mBall.getY() + mBall.getRadius() > mHeight) {
-            mBall.setY(mHeight - mBall.getRadius());
+        if (mBall.getY() + mBall.getScaledRadius() > mHeight) {
+            mBall.setY(mHeight - mBall.getScaledRadius());
             final float angleY = mBall.getVelocity().angle(Vector2.X);
             mBall.getVelocity().setAngle(angleY);
 
@@ -129,7 +128,7 @@ public class World {
     }
 
     public boolean hit(float x, float y) {
-        return distance(mBall.getX(), mBall.getY(), x, y) <= (mBall.getRadius() + Styles.dp(HIT_ERROR_DP));
+        return distance(mBall.getX(), mBall.getY(), x, y) <= (mBall.getScaledRadius() + Styles.dp(HIT_ERROR_DP));
     }
 
     // =============================================================================================
@@ -147,7 +146,6 @@ public class World {
     public Ball getBall() {
         return mBall;
     }
-
 
 
     public float getTime() {
