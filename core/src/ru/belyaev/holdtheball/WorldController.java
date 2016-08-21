@@ -12,10 +12,10 @@ public class WorldController {
     }
 
     public void update(float deltaTime) {
+        checkGameOver();
         updateBall(deltaTime);
         updateAcceleration(deltaTime);
         checkCollisionBorders();
-        checkGameOver();
         mWorld.addTime(deltaTime);
     }
 
