@@ -1,5 +1,6 @@
 package ru.belyaev.holdtheball;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
@@ -24,6 +25,11 @@ public class WorldRenderer {
         final float r = mWorld.getBall().getScaledRadius();
         final float x = mWorld.getBall().getPosition().x;
         final float y = mWorld.getBall().getPosition().y;
+
+//        mShapeRenderer.setColor(Color.LIGHT_GRAY);
+//        mShapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+//        mShapeRenderer.circle(mWorld.getWidth() / 2, mWorld.getHeight() / 2, Math.min(mWorld.getWidth() / 2, mWorld.getHeight() / 2));
+//        mShapeRenderer.end();
 
         mSpriteBatch.begin();
         mSpriteBatch.draw(Assets.sBallTexture, x - r, y - r, 2 * r, 2 * r);
