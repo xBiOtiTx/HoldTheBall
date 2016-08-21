@@ -1,22 +1,20 @@
 package ru.belyaev.holdtheball.screen;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 
+import ru.belyaev.holdtheball.HoldTheBall;
+
 public abstract class BaseScreen implements Screen, InputProcessor {
     private static final Color CLEAR_COLOR = Color.WHITE;
 
-    private final Game mGame;
+    private final HoldTheBall mGame;
 
-    public BaseScreen(Game game) {
+    public BaseScreen(HoldTheBall game) {
         mGame = game;
-
-        InputMultiplexer inputMultiplexer = new InputMultiplexer(); // todo
     }
 
     protected void clear() {
@@ -111,7 +109,7 @@ public abstract class BaseScreen implements Screen, InputProcessor {
     // getters
     // =============================================================================================
 
-    public Game getGame() {
+    public HoldTheBall getGame() {
         return mGame;
     }
 }

@@ -1,6 +1,9 @@
 package ru.belyaev.holdtheball;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Vector2;
+
+import ru.belyaev.holdtheball.util.Dimens;
 
 public class Ball {
     private static final float MAX_VELOCITY = 800.0f; // TODO -> config
@@ -8,10 +11,10 @@ public class Ball {
     private Vector2 mPosition;
     private Vector2 mVelocity = new Vector2(0, 0);
     private Vector2 mAcceleration = new Vector2(0, 0);
-    private float mRadius;
+    private int mRadius;
     private float mScale = 1.0f;
 
-    public Ball(Vector2 position, float radius) {
+    public Ball(Vector2 position, int radius) {
         mPosition = position;
         mRadius = radius;
     }
@@ -26,6 +29,14 @@ public class Ball {
             mVelocity.nor();
             mVelocity.scl(MAX_VELOCITY);
         }
+    }
+
+    public boolean hit(float x, float y) {
+        return mPosition.dst(x,y) <= (getScaledRadius() + Dimens.HIT_ERROR_PX);
+    }
+
+    public boolean hit(Vector2 position) {
+        return mPosition.dst(position) <= (getScaledRadius() + Dimens.HIT_ERROR_PX);
     }
 
     public void setPosition(Vector2 position) {
@@ -73,11 +84,11 @@ public class Ball {
         return mAcceleration;
     }
 
-    public void setRadius(float radius) {
+    public void setRadius(int radius) {
         mRadius = radius;
     }
 
-    public float getRadius() {
+    public int getRadius() {
         return mRadius;
     }
 

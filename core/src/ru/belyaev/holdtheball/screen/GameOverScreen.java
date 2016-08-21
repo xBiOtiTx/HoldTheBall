@@ -1,6 +1,5 @@
 package ru.belyaev.holdtheball.screen;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -9,60 +8,65 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 
-import java.text.DecimalFormat;
-import java.util.Locale;
-
+import ru.belyaev.holdtheball.util.Assets;
+import ru.belyaev.holdtheball.util.Dimens;
 import ru.belyaev.holdtheball.GamePreferences;
-import ru.belyaev.holdtheball.ui.ButtonFactory;
-import ru.belyaev.holdtheball.ui.Styles;
-
+import ru.belyaev.holdtheball.HoldTheBall;
+import ru.belyaev.holdtheball.util.Strings;
 
 public class GameOverScreen extends BaseScreen {
 
-    private final DecimalFormat mDecimalFormat = new DecimalFormat("0.000");
     private final GamePreferences mGamePreferences;
+    private final Stage mGameOverUI;
 
-    private final Stage mStage;
-
-    public GameOverScreen(Game game, float time) {
+    public GameOverScreen(HoldTheBall game, float time) {
         super(game);
         mGamePreferences = new GamePreferences();
 
-        mStage = new Stage();
-        Gdx.input.setInputProcessor(mStage);
+        mGameOverUI = new Stage();
+        Gdx.input.setInputProcessor(mGameOverUI);
 
         final VerticalGroup verticalGroup = new VerticalGroup();
         final float bestTime = Math.max(time, mGamePreferences.getBestTime());
         mGamePreferences.setBestTime(bestTime);
 
-        Label label1 = ButtonFactory.createLabel(String.format(Locale.US, "Your time: %.3f", time));
-        label1.setScale(5);
-        Label label2 = ButtonFactory.createLabel(String.format(Locale.US, "Best time: %.3f", bestTime));
-        TextButton button = ButtonFactory.createButton("RETRY");
-
-        button.pad(Styles.dp(8), Styles.dp(16), Styles.dp(8), Styles.dp(16));
-        button.addListener(new ClickListener() {
+        final Label yourTimeLabel = new Label(Strings.getYourTimeString(time), Assets.sSkin, "black-label-style");
+        final Label bestTimeLabel = new Label(Strings.getBestTimeString(bestTime), Assets.sSkin, "black-label-style");
+        final TextButton retryButton = new TextButton(Strings.RETRY_STRING, Assets.sSkin, "button-style");
+        retryButton.pad(Dimens.toDpi(8), Dimens.toDpi(16), Dimens.toDpi(8), Dimens.toDpi(16));
+        retryButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 getGame().setScreen(new GameScreen(getGame()));
             }
         });
-        verticalGroup.addActor(label1);
-        verticalGroup.addActor(label2);
-        verticalGroup.addActor(button);
+        verticalGroup.addActor(yourTimeLabel);
+        verticalGroup.addActor(bestTimeLabel);
+        verticalGroup.addActor(retryButton);
 
-        verticalGroup.space(Styles.dp(16));
+        verticalGroup.space(Dimens.toDpi(16));
 
-        Container<VerticalGroup> container = new Container<VerticalGroup>(verticalGroup);
+        final Container<VerticalGroup> container = new Container<VerticalGroup>(verticalGroup);
         container.setFillParent(true);
-        mStage.addActor(container);
+        mGameOverUI.addActor(container);
+
+//        if (time < 1) {
+//            final Label tipLabel = new Label(Strings.TIP_STRING, Assets.sSkin, "black-label-style");
+//            tipLabel.setAlignment(Align.center);
+//            tipLabel.setPosition(
+//                    mGameOverUI.getWidth() / 2 - tipLabel.getWidth() / 2,
+//                    Dimens.toDpi(16)
+//            );
+//            mGameOverUI.addActor(tipLabel);
+//        }
     }
 
     @Override
     public void render(float deltaTime) {
         clear();
-        mStage.act();
-        mStage.draw();
+        mGameOverUI.act();
+        mGameOverUI.draw();
     }
 }

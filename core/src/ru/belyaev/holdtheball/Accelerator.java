@@ -1,25 +1,21 @@
-package ru.belyaev.holdtheball.effect;
+package ru.belyaev.holdtheball;
 
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.Random;
 
-import ru.belyaev.holdtheball.Ball;
-
-public class AccelerationEffect implements Effect {
+public class Accelerator {
     private static final float MAX_ACCELERATION = 6000.0f;
     private static final float MAX_TIME_TO_ACCELERATE = 0.75f;
 
     private float mTimeToAccelerate = 0;
     private final Random mRandom = new Random();
 
-    @Override
     public void apply(Ball ball, float deltaTime) {
         mTimeToAccelerate -= deltaTime;
         if (mTimeToAccelerate <= 0) {
             mTimeToAccelerate = mRandom.nextFloat() * MAX_TIME_TO_ACCELERATE;
-            final Vector2 acceleration = getRandomAcceleration();
-            ball.getAcceleration().set(acceleration);
+            ball.getAcceleration().set(getRandomAcceleration());
         }
     }
 
